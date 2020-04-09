@@ -1,5 +1,5 @@
 CURRENT_DIR = $(shell pwd)
-DOCKER_NAME ?= arista-cvp
+DOCKER_NAME ?= gitroot
 DOCKER_TAG ?= $(shell sh .github/version.sh)
 # ansible-test path
 ANSIBLE_TEST ?= $(shell which ansible-test)

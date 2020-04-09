@@ -36,7 +36,7 @@ try:
     from urllib import quote_plus as qplus
 except (AttributeError, ImportError):
     from urllib.parse import quote_plus as qplus
-
+MODULE_LOGGER = logging.getLogger('arista.cvp.cv_api2020')
 
 class CvpApi(object):
     ''' CvpApi class contains calls to CVP 2020.1.x RESTful API.  The RESTful API
@@ -969,6 +969,7 @@ class CvpApi(object):
             container['factoryId'] = 1
             container['userId'] = None
             container['childContainerId'] = None
+        MODULE_LOGGER.debug("The container list is", containers)
         return {'data': containers, 'total': len(containers)}
 
     def get_container_by_name(self, name):
@@ -985,6 +986,7 @@ class CvpApi(object):
             '* cv_api2020 - get_container_by_name - container name is: %s', str(name))
         containers = self.clnt.get('/provisioning/searchTopology.do?queryParam=%s'
                                    '&startIndex=0&endIndex=0' % qplus(name))
+        MODULE_LOGGER.debug(containers)
         if containers['total'] > 0 and containers['containerList']:
             for container in containers['containerList']:
                 if container['name'] == name:
