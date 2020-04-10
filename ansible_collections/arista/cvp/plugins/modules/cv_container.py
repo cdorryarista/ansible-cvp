@@ -50,6 +50,7 @@ except ImportError:
 # List of Ansible default containers
 builtin_containers = ['Undefined', 'root']
 
+MODULE_LOGGER = logging.getLogger('arista.cvp.cv_container')
 
 DOCUMENTATION = r'''
 ---
@@ -848,6 +849,7 @@ def attached_configlet_to_container(module, intended, facts):
         # Initiate a move to desired container.
         # Task is created but not executed.
         configlets_name = list()
+        MODULE_LOGGER.debug(configlet_list)
         for configlet in configlet_list:
             configlets_name.append(configlet['name'])
         MODULE_LOGGER.info('Apply %s to %s', str(configlets_name), str(container_info_cvp['name']))
